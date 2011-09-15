@@ -1,0 +1,60 @@
+{% load store_currency %}
+<div id="cart_block" class="block exclusive">
+    <h4><a href="{% url cart %}">Carrinho</a><span id="block_cart_expand" class="hidden">&nbsp;</span><span id="block_cart_collapse">&nbsp;</span></h4>
+	<div class="block_content">
+		<!-- block summary -->
+	<div id="cart_block_summary" class="collapsed">
+     {% if cart %}
+	 	<span class="ajax_cart_quantity">{{ cart.order.items_count }}</span>
+		 	{% if cart.order.items_count > 1 %}
+				<span class="ajax_cart_product_txt_s">produtos</span>
+		 	{% else %}
+	     		<span class="ajax_cart_product_txt">produtos</span>
+			{% endif %}
+		<span class="ajax_cart_total" >{{ cart.order.subtotal|currency}}</span>
+	 	{% else %}
+	 <span class="ajax_cart_no_product">(vazio)</span>
+	 {% endif %}
+	</div>
+        <!-- block list of products -->
+        <div id="cart_block_list" class="expanded">
+        	{% if cart %}
+			<dl class="products">
+					{% for item in cart %}
+					<dt id="cart_block_product_2" class="item">
+						<span class="quantity-formated">
+							<span class="quantity">{{ item.quantity }}</span>
+						x</span>
+						<a class="cart_block_product_name" href="{% url cart %}" title="{{ item.product }}">
+						{{ item.product|truncatewords:1 }}</a>
+							<span class="remove_link"><a rel="nofollow" class="ajax_cart_block_remove_link" href="{url cart}" title="excluir o produto do carrinho">&nbsp;</a></span>
+						<span class="price">{{item.subtotal|currency}}</span>
+					</dt>
+					{% endfor %}
+				<!-- Customizable datas -->
+			</dl>
+			<div class="cart-prices">
+            	{% if cart.order.shipping_cost %}
+				<div class="cart-prices-block">
+                    <span id="cart_block_shipping_cost" class="price ajax_cart_shipping_cost">{{cart.order.shipping_cost|currency}}</span>
+                    <span>Frete</span>
+                </div>
+	   			{% endif %}
+                <div class="cart-prices-block">
+                    <span id="cart_block_total" class="price ajax_block_cart_total">{{cart.order.subtotal|currency}}</span>
+                    <span>Total</span>
+                </div>
+            </div>
+			{% else%}
+            <p id="cart_block_no_products">
+                Não há produtos
+            </p>
+			{% endif %}
+            
+            <p id="cart-buttons">
+                <a href="{% url checkout %}" id="button_order_cart" class="exclusive" title="Check out">Check out</a>
+                <a href="{% url cart %}" class="button" title="Cart">Carrinho</a>
+            </p>
+        </div>
+    </div>
+</div>

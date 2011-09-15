@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% load thumbnail store_currency page_tags product_tags  %}
+
+{% block breadcrumb %}
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+	<a href="/" title="volver a Inicio">Início</a><span class="navigation-pipe">&gt;</span>
+	<span class="navigation_end">Carrinho de Compras</span>
+</div>
+<!-- /Breadcrumb -->
+{% endblock %}
+
+{% block content %}
+<!-- Steps -->
+<ul class="step" id="order_step">
+	<li class="step_current">
+		Resumo
+			</li>
+	<li class="step_todo">
+		Identificação
+			</li>
+	<li id="step_todo" class="step_todo">
+		Pagamento
+	</li>
+	<li id="step_end" class="step_todo">
+		
+	</li>
+</ul>
+<!-- /Steps -->
+
+<p>Você possue <span id="summary_products_quantity">{{ cart.order.items_count }} produtos</span></p>
+
+<div id="order-detail-content" class="table_block">
+
+{% if cart %}
+	<form class="qtyform" id="form-{{ item.id }}" action="{% url change-cart %}" method="post">
+		{% csrf_token %}	
+		
+	<table id="cart_summary" class="std">
+		<thead>
+			<tr>
+				<th class="cart_product first_item">Produto</th>
+				<th class="cart_description item">Descrição</th>
+				<th class="cart_unit item">Preço</th>
+				<th class="cart_quantity item">Quantidade</th>
+				<th class="cart_total last_item">Total</th>
+				<th>Remover</th>
+			</tr>
+		</thead>
+		
+		<tfoot>
+			
+			<tr class="cart_total_price">
+						<td colspan="5">Total de produtos :</td>
+						<td class="price" id="total_product">
+							<span class="price">{{cart.subtotal}}</span>
+						</td>
+			</tr>
+			{% if cart.order.shipping_cost %}
+	   		<tr class="cart_total_voucher" id="frete">
+				<td colspan="5" id="price">
+					Frete ( {{cart.order.shipping_method}}):
+				</td>
+				<td class="price-discount" id="total_discount">
+					<span class="price">{{cart.order.shipping_cost|currency}}</span>
+				</td>
+			</tr>
+			{% endif %}
+			<tr class="cart_total_price">
+				<td colspan="5">Total:</td>
+				<td class="price" id="total_price_without_tax"><span class="price">{{cart.order.subtotal|currency}}</span></td>
+			</tr>
+			
+		</tfoot>
+		
+		<tbody>
+		{% for item in cart %}
+			<tr class=" cart_item">	
+				<td class="cart_product">
+					<a href="{{ item.product.content_object.get_absolute_url }}">
+						{% thumbnail item.product.content_object.photo "65x65" crop="center" as im %}
+							    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ item.product.product.title }}" />
+						{% endthumbnail %}
+					</a>						
+				</td>
+				<td class="cart_description">
+					<h5><a class="product_link" href="{{item.content_object.get_absolute_url}}">{{ item.product }}</a></h5>
+				</td>
+				<td class="cart_unit">
+					<span class="price" id="product_price_1_0">{{ item.product.price|currency }}</span>
+				</td>
+				
+				<td class="cart_quantity">
+	                <input type="hidden" name="cartitem-{{ forloop.counter }}" value="{{ item.id }}" />
+					<input type="text" class="quantity" size="3" name="quantity-{{ forloop.counter }}" id="id_quantity" value="{{ item.quantity }}" />
+	            </td>
+				<td class="cart_total">
+						<strong>{{item.subtotal|currency}}</strong>
+				</td>
+				<td class="remove">
+				    <a href="{% url remove-from-cart item.product.pk %}">X</a>
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+	</div>
+	<div id="cart_voucher" class="table_block">
+			<fieldset>
+				<h2>Digite seu cep e calcule o frete</h2>
+				{% if shipping %}
+		           	<ul class="list">
+		               {% for sh  in shipping %}
+		               <li>
+		                   <input type="radio" id="frete-{{sh.Codigo}}" name="frete" value="{{sh.Codigo}}:{{sh.Valor}}" /><label for="frete-{{sh.Codigo}}">{{sh.Codigo}} : <strong>+{{sh.Valor|currency}}</strong></label>
+		               </li>
+		               {% endfor %}
+		           </ul>
+				   <p class="submit">
+						<input type="submit" name="update" class="button" value="Atualizar"/>
+				   </p>
+				{% else %}
+					<p class="text">
+						<label for="discount_name">CEP :</label>
+						<input type="text" class="text small" name="cep" value="" id="cep" alt="cep" maxlength="9" />
+					</p>
+					<p class="submit">
+						<input type="submit" name="shipping" class="button" value="Calcular Frete"/>
+						<!-- -->
+					</p>
+				{% endif %}
+			</fieldset>
+	</div>
+		
+	   <p class="cart_navigation">
+	   	<input type="submit" name="checkout" class="exclusive" value="Finalizar compra"/>	
+	   	   <a href="{{store.get_absolute_url}}" class="button_large">Continue comprando</a>
+	       
+	   </p>
+	
+	
+	
+	</form>	
+
+	   <script type="text/javascript" charset="utf-8">
+	       $(document).ready(function() {
+	           $('.quantity').keyup(function(){
+	               var frm = $('.qtyform');
+	               frm.submit();
+	           });
+	       });
+	   </script>
+	   
+       
+	{% else %}	
+		<div class="alerta">Nenhum item adicionado.</div>
+		<div class="clear"></div>
+		<p>
+		    <a href="{{store.get_absolute_url}}">Retornar a loja</a>
+		</p>
+		</div>
+	{% endif %}
+
+
+{% endblock %}

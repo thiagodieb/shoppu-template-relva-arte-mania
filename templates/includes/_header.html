@@ -1,0 +1,92 @@
+<!-- Header -->
+<div id="header">
+    <a id="header_logo" href="/" title="{{store.name}}">
+    	<img class="logo" src="{{ STATIC_URL }}/img/logo.jpg" alt="{{store.name}}" />
+	</a>
+    <div id="header_right">
+        {% include "includes/_menu.html" %}
+		<!-- /Block permanent links module -->
+		<!-- Block search module TOP -->
+        <div id="search_block_top">
+            <form method="get" action="{% url cart %}" id="searchbox">
+                <input class="search_query" type="text" id="search_query_top" name="search_query" value="" /><input type="hidden" name="orderby" value="position" /><input type="hidden" name="orderway" value="desc" /><a href="javascript:document.getElementById('searchbox').submit();"><span>Buscar</span></a>
+            </form>
+        </div>
+        <!-- /Block search module TOP -->
+		
+		<!-- Block currencies module 
+        <div id="currencies_block_top">
+            <form id="setCurrency" action="" method="post">
+                <label>
+                    Currency:
+                </label>
+                <select onchange="setCurrency(this.value);">
+                    <option value="2" selected="selected">Dollar</option>
+                    <option value="1">Euro</option>
+                    <option value="3">Pound</option>
+                </select>
+                <input type="hidden" name="id_currency" id="id_currency" value=""/><input type="hidden" name="SubmitCurrency" value="" />
+            </form>
+        </div>
+		 /Block currencies module -->
+		<!-- Block languages module 
+        <div id="languages_block_top">
+            <label>
+                Languages:
+            </label>
+            <ul id="first-languages">
+                <li class="selected_language">
+                    <img src="{{ STATIC_URL }}/img/l/1.jpg" alt="en" width="16" height="11" />
+                </li>
+                <li>
+                    <a href="?&amp;id_lang=2" title="Franзais (French)"><img src="{{ STATIC_URL }}/img/l/2.jpg" alt="fr" width="16" height="11" /></a>
+                </li>
+                <li>
+                    <a href="?&amp;id_lang=3" title="Espaсol (Spanish)"><img src="{{ STATIC_URL }}/img/l/3.jpg" alt="es" width="16" height="11" /></a>
+                </li>
+            </ul>
+        </div>
+        <script type="text/javascript">
+            $('ul#first-languages li:not(.selected_language)').css('opacity', 0.3);
+            $('ul#first-languages li:not(.selected_language)').hover(function(){
+                $(this).css('opacity', 1);
+            }, function(){
+                $(this).css('opacity', 0.3);
+            });
+        </script>
+         /Block languages module -->
+		 
+		 <!-- /TM Banner #1 -->
+		 
+         <!-- Block user information module HEADER -->
+         <div id="header_user">
+             <ul>
+                 <li id="shopping_cart">
+                     <a href="{% url cart %}" title="Seu carrinho de compras">Carrinho:</a>
+                     {% if cart %}
+					 	<span class="ajax_cart_quantity">{{ cart.order.items_count }}</span>
+					 	{% if cart.order.items_count > 1 %}
+							<span class="ajax_cart_product_txt_s">produtos</span>
+					 	{% else %}
+                     		<span class="ajax_cart_product_txt">produto</span>
+						{% endif %}
+					 {% else %}
+					 <span class="ajax_cart_no_product">(vazio)</span>
+					 {% endif %}
+                 </li>
+                 <li id="header_user_info">
+                     <a id="your_account" href="my-account.php" title="Your Account">Minha conta</a>
+                     Bem vindo,
+                     (&nbsp;<a href="my-account.php">Entre</a>&nbsp;)
+                 </li>
+             </ul>
+         </div>
+         <!-- /Block user information module HEADER -->
+        {% include "includes/_banner.html" %}
+		
+        {% block header %}
+        {% endblock %}
+    </div>
+    {% block breadcrumb %}
+    {% endblock %}
+</div>

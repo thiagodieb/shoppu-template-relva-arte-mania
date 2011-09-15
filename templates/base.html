@@ -1,0 +1,56 @@
+{% load thumbnail store_currency page_tags product_tags  %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>{% block title %}{% endblock %}{{store.name}}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ STATIC_URL }}favicon.ico" />
+    <link href="{{ STATIC_URL }}css/global.css" rel="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery-1.5.2.min.js">
+    </script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.easing.1.3.js">
+    </script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/tools.js">
+    </script>
+	<script type="text/javascript" src="{{ STATIC_URL }}modules/blockcart/ajax-cart.js">
+	</script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/tools/treeManagement.js">
+    </script>
+    {% block head %}{% endblock %}
+</head>
+<body id="index">
+    <!--[if lt IE 7]><div style='clear:both;height:59px;padding:0 15px 0 15px;position:relative;z-index:10000;text-align:center;'><a href="http://www.microsoft.com/windows/internet-explorer/default.aspx?ocid=ie6_countdown_bannercode"><img src="http://www.theie6countdown.com/images/upgrade.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." /></a></div><![endif]-->
+    <div id="wrapper1">
+        <div id="wrapper2">
+            <div id="wrapper3">
+                <div id="wrapper4">
+                    	{% include "includes/_header.html" %}
+                    <div id="columns">
+                        <!-- Center -->
+                        <div id="center_column" class="center_column">
+                            {% block content %}
+                            {% endblock %}
+                        </div>
+                        <!-- Right -->
+                        <div id="right_column" class="column">
+                            <script type="text/javascript">
+                                var CUSTOMIZE_TEXTFIELD = 1;
+                                var customizationIdMessage = 'Customization #';
+                                var removingLinkText = 'remove this product from my cart';
+                            </script>
+							<!-- MODULE Block cart -->
+                            {% include "includes/_cart.html" %}
+							<!-- /MODULE Block cart -->
+							
+                            <!-- Block categories module -->
+				            {% get_categories as categories %}
+							{% include "includes/_categories.html" %}
+                            <!-- /Block categories module -->
+                        </div>
+                    </div>
+                </div>
+                {% include "includes/_footer.html" %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

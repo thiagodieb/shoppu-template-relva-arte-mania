@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load thumbnail store_currency %}
+{% block content %}
+<!-- MODULE Home Featured Products -->
+<div id="featured-products_block_center">
+    <h4>Produtos</h4>
+		<div class="block_content">
+		<ul>
+			{% for product in products %}
+            <li class="ajax_block_product ">
+            	<h5>
+					<a class="product_link" href="{{product.get_absolute_url}}"	title="{{product.title}}">{{product.title}}</a>
+				</h5>
+				<a class="product_link" href="{{product.get_absolute_url}}"	title="{{product.title}}">
+					    <img class="thumb" alt="{{product.title}}" src="/media/{{product.photo}}">
+    			</a>
+					<p class="product_desc">
+						<a class="product_descr" href="{{product.get_absolute_url}}" title="More">{{product.description|striptags|truncatewords:15}}</a></p>
+					<div>
+					<a class="exclusive ajax_add_to_cart_button" rel="ajax_id_product_1" href="{{product.get_absolute_url}}" title="Mais Detalhes">Ver</a>
+					<span class="price">{{product.price|currency}}</span>
+				</div>
+            </li>
+        {% endfor %}
+		</ul>
+		</div>
+</div>
+{% endblock %}

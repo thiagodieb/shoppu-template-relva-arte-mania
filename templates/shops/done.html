@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load thumbnail store_currency %}
+
+
+{% block breadcrumb %}
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+	<a href="/" title="volver a Inicio">Início</a><span class="navigation-pipe">&gt;</span>
+	<span class="navigation_end">Confirmação do pedido</span>
+</div>
+<!-- /Breadcrumb -->
+{% endblock %}
+
+{% block content %}
+<!-- Steps -->
+<ul class="step" id="order_step">
+	<li class="step_todo">
+		Resumo
+			</li>
+	<li class="step_todo">
+		Identificação
+			</li>
+	<li class="step_todo">
+		Pagamento
+	</li>
+	<li id="step_end" class="step_todo">
+		
+	</li>
+</ul>
+<!-- /Steps -->
+
+ <div id="order-detail-content" class="table_block">
+	<div class="warning">
+	    {% if order %}
+            <p>Prezado(a	) {{order.billing_name}},</p>
+            <p>Seu pedido foi registrado com sucesso em nosso sistema com o número {{order.pk}}. Estamos aguardando a confirmação do pagamento para a liberação do produto.</p>
+	    {% endif %}
+    </div>
+</div>    
+{% endblock %}

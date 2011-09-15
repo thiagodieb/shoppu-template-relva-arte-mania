@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+
+{% block breadcrumb %}
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+	<a href="/" title="volver a Inicio">Início</a><span class="navigation-pipe">&gt;</span>
+	<span class="navigation_end">Meus dados</span>
+</div>
+<!-- /Breadcrumb -->
+{% endblock %}
+
+{% block content %}
+<!-- Steps -->
+<ul class="step" id="order_step">
+	<li class="step_todo">
+		Resumo
+			</li>
+	<li class="step_current">
+		Identificação
+			</li>
+	<li class="step_todo">
+		Pagamento
+	</li>
+	<li id="step_end" class="step_todo">
+		
+	</li>
+</ul>
+<!-- /Steps -->
+
+ <div id="order-detail-content" class="table_block">
+	{% if form.non_field_errors %}{{ form.non_field_errors }}{% endif %}
+	<form class="std" method="post" accept-charset="utf-8">
+        {% csrf_token %}
+		<fieldset>
+			<h3>Dados para contato</h3>
+        	<div>campos com * são obrigatórios</div>
+			{% for fieldset in form.fieldsets %}
+				{% if fieldset.legend %}
+				{% endif %}				
+	            {% for field in fieldset %}
+				<p class="text {% if field.errors %}error{% endif %}">
+					<label for="id_{{field.name}}">{{field.label}}: {% if field.field.required %}<span class="req">*</span>{% endif %}</label>
+					{{field}}
+					{% if field.errors %}<p class="error">{{field.errors}}</p>{% endif %}
+				</p>
+	            {% endfor %}
+			{% endfor %}
+			<p class="submit">
+				<input type="submit" class="exclusive" style="float:right;" value="Prosseguir"/>
+			</p>
+    </form>
+</div>
+{% endblock %}
