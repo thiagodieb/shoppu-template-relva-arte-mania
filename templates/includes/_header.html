@@ -8,8 +8,8 @@
 		<!-- /Block permanent links module -->
 		<!-- Block search module TOP -->
         <div id="search_block_top">
-            <form method="get" action="{% url cart %}" id="searchbox">
-                <input class="search_query" type="text" id="search_query_top" name="search_query" value="" /><input type="hidden" name="orderby" value="position" /><input type="hidden" name="orderway" value="desc" /><a href="javascript:document.getElementById('searchbox').submit();"><span>Buscar</span></a>
+            <form method="get" action="#" id="searchbox">
+                <input class="search_query" type="text" id="search_query_top" name="search_query" value="" /><a href="javascript:document.getElementById('searchbox').submit();"><span>Buscar</span></a>
             </form>
         </div>
         <!-- /Block search module TOP -->
@@ -74,19 +74,17 @@
 					 <span class="ajax_cart_no_product">(vazio)</span>
 					 {% endif %}
                  </li>
-                 <li id="header_user_info">
+               <!--  <li id="header_user_info">
                      <a id="your_account" href="my-account.php" title="Your Account">Minha conta</a>
                      Bem vindo,
                      (&nbsp;<a href="my-account.php">Entre</a>&nbsp;)
                  </li>
+				-->
              </ul>
          </div>
          <!-- /Block user information module HEADER -->
-        {% include "includes/_banner.html" %}
 		
         {% block header %}
         {% endblock %}
-    </div>
-    {% block breadcrumb %}
-    {% endblock %}
+    </div> 
 </div>

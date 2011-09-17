@@ -1400,5 +1400,58 @@ input.text {border:1px solid gray;}
 
 }
 
+#flags {
+    clear: both;
+    padding: 5px;
+    overflow: hidden;
+}
+#flags span {
+    background: url("../img/sprite_flags.gif") no-repeat scroll 0 0 transparent;
+    display: block;
+    float: left;
+    height: 20px;
+    margin-right: 10px;
+    text-indent: -9999px;
+    width: 46px;
+}
+#flags #flag_visa {
+    background-position: -52px 0;
+}
+#flags #flag_mastercard {
+    background-position: -104px 0;
+}
+#flags #flag_diners {
+    background-position: -156px 0;
+}
+#flags #flag_americanexpress {
+    background-position: -207px 0;
+}
+#flags #flag_hipercard {
+    background-position: -259px 0;
+}
+#flags #flag_aura {
+    background-position: -311px 0;
+}
+#flags #flag_bradesco {
+    background-position: -363px 0;
+}
+#flags #flag_itau {
+    background-position: -415px 0;
+}
+#flags #flag_real {
+    background-position: -518px 0;
+}
+#flags #flag_bb {
+    background-position: -467px 0;
+}
+#flags #flag_banrisul {
+    background-position: -570px 0;
+}
+#flags #flag_boleto {
+    background-position: -622px 0;
+    margin-right: 0;
+}
+
+
 
 

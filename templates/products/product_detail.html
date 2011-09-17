@@ -1,14 +1,11 @@
 {% extends "base.html" %}
-{% load thumbnail store_currency page_tags product_tags  %}
-		
+{% load thumbnail store_currency page_tags product_tags  %}	
 {% block head %}
-	
 		<script type="text/javascript" src="{{ STATIC_URL }}js/tools.js"></script>
 		<script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.fancybox-1.3.4.js"></script>
 		<script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.idTabs.modified.js"></script>
 		<script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.scrollTo-1.4.2-min.js"></script>
 		<script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.serialScroll-1.2.2-min.js"></script>
-		<script type="text/javascript" src="{{ STATIC_URL }}js/tools.js"></script>
 		<script type="text/javascript" src="{{ STATIC_URL }}js/product.js"></script>
 		<script type="text/javascript" src="{{ STATIC_URL }}modules/blockcart/ajax-cart.js"></script>
 
@@ -21,7 +18,7 @@
 		});
 	</script>
 		
-{% endblock %}
+{% endblock head %}
 
 {% block breadcrumb %}
 <!-- Breadcrumb -->
@@ -51,32 +48,23 @@
 			<ul id="thumbs_list">
     		{% for image in product.images.all %}
     				<li id="thumbnail_1">
-    				{% thumbnail image "50x45" crop="center" as im %}
-    				    <a class="alterarFoto" href="{% thumbnail image "270x270" crop="center" as full %}{{ full.url }}{% endthumbnail %}" class="thickbox shown" >
-    				        <img id="thumb_1" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+						<a class="alterarFoto" href="{{ image.photo.url }}" class="thickbox shown" >
+    				        <img id="thumb_1" src="{{ image.photo.url }}" width="{{ image.width }}" height="{{ image.height }}">
     				    </a>
-    				{% endthumbnail %}
+    	
     				</li>
     		{% endfor %}
 			{%endif%}
 		</div>
 		</div>
-		<span id="wrapResetImages" style="display:none;">
-			<div>
-				<a id="resetImages" href="product.php?id_product=1" onclick="$('span#wrapResetImages').hide('slow');return (false);">Mostrar todas las im&aacute;genes</a>
-			</div>
-		</span>		<!-- usefull links-->
 		<ul id="usefull_link_block">
 						<li><a href="javascript:print();">Imprimir</a></li>
-						<li><span id="view_full_size" class="span_link">Ampliar</span></li>
+						<!--<li><span id="view_full_size" class="span_link">Ampliar</span></li> -->
 					</ul>
 	</div>
 	<!-- left infos-->
 	<div id="pb-left-column">
-				<div id="short_description_block">
-					<!--<div id="short_description_content" class="rte align_justify"> {{product.description|striptags}}</div>-->
-						<p class="buttons_bottom_block"><a href="javascript:{}" class="exclusive">Mais detalhes</a></p>
-					</div>
+ 
 								<!-- add to cart form-->
 	
 	 <form   id="buy_block"   action="{% url add-to-cart  %}" method="post" accept-charset="utf-8">
@@ -111,11 +99,24 @@
 			<p id="pQuantityAvailable">
 				<span id="quantityAvailable">{{product.items_in_stock}}</span>
 				<span  id="quantityAvailableTxtMultiple">dispoíveis</span>
-			</p>
+			</p><br/>
+				<div>
+				                <b>Em até 18 parcelas:</b>
+				                <div id="flags">
+				           			<span title="Visa" id="flag_visa">Visa</span>
+				           			<span title="MasterCard" id="flag_mastercard">MasterCard</span>
+				           			<span title="Diners" id="flag_diners">Diners</span>
+				           			<span title="American Express" id="flag_americanexpress">American Express</span>
+				           			<span title="Boleto" id="flag_boleto">Boleto</span>
+				               </div>
+
+				            </div>
 				<p id="add_to_cart" class="buttons_bottom_block">
 				<a class="button_large" href="javascript:document.getElementById('add2cartbtn').click();">Colocar no Carrinho</a>
 				<input id="add2cartbtn" type="submit" name="Submit" value="Carrinho" />
 			</p>
+		
+			
 						<div class="clearblock"></div>
 		</form>
 		</div>
@@ -130,7 +131,7 @@
 	<div id="more_info_sheets" class="sheets align_justify">
 			<!-- full description -->
 		<div id="idTab1"><p>
-			{{product.description|striptags}}
+			{{product.description|safe}}
 		</p></div>
 				<!-- product's features -->
 		<ul id="idTab2" class="bullet">

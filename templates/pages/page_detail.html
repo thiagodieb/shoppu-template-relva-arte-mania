@@ -1,11 +1,23 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block title %}
     {{ object.title }}
 {% endblock title %}
 
+{% block breadcrumb %}
+<!-- Breadcrumb -->
+<div class="breadcrumb">
+	<a href="/" title="volver a Inicio">Início</a><span class="navigation-pipe">&gt;</span>
+	<span class="navigation_end"> {{ object.title }}</span>
+</div>
+<!-- /Breadcrumb -->
+{% endblock %}
+
 {% block content %}
-    <h2>{{ object.title }}</h2>
+<div id="primary_block" class="clearfix">
+	<h1>{{object.title}}</h1> 
     <div>
-        {{ object.content }}
+        {{ object.content|safe}}
     </div>
+</div>
 {% endblock content %}

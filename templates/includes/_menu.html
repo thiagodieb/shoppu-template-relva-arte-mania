@@ -1,8 +1,9 @@
+{% load     page_tags    %}
 <div id="header_links">
 	<ul>
 		{% block menu %}
 		<li id="header_link_home"><a href="/" class="active">Principal</a></li> 
-			{% include "pages/menu.html" %}
+			{% show_menu %}
 		{% endblock %}	
 	</ul>
 </div>

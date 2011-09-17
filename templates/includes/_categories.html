@@ -5,7 +5,7 @@
         <ul class="tree dhtml">
         	{% for category in categories %}
             <li>
-                <a href="{{category.slug}}" title="">{{category.name}}</a>
+                <a href="{% url product_by_category category.slug %}" title="">{{category.name}}</a>
             </li>
 			{% endfor %}
         </ul>

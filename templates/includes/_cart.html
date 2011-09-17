@@ -26,8 +26,8 @@
 							<span class="quantity">{{ item.quantity }}</span>
 						x</span>
 						<a class="cart_block_product_name" href="{% url cart %}" title="{{ item.product }}">
-						{{ item.product|truncatewords:1 }}</a>
-							<span class="remove_link"><a rel="nofollow" class="ajax_cart_block_remove_link" href="{url cart}" title="excluir o produto do carrinho">&nbsp;</a></span>
+						{{ item.product|truncatewords:2 }}</a>
+							<span class="remove_link"><a rel="nofollow" class="ajax_cart_block_remove_link" href="{% url remove-from-cart item.product.pk %}" title="excluir o produto do carrinho">&nbsp;</a></span>
 						<span class="price">{{item.subtotal|currency}}</span>
 					</dt>
 					{% endfor %}

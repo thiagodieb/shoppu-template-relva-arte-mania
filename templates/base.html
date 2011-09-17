@@ -9,13 +9,13 @@
     </script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.easing.1.3.js">
     </script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/tools.js">
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.serialScroll-1.2.2-min.js">
     </script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery/jquery.scrollTo-1.4.2-min.js">
+	</script>
+    {% block head %}{% endblock %}
 	<script type="text/javascript" src="{{ STATIC_URL }}modules/blockcart/ajax-cart.js">
 	</script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/tools/treeManagement.js">
-    </script>
-    {% block head %}{% endblock %}
 </head>
 <body id="index">
     <!--[if lt IE 7]><div style='clear:both;height:59px;padding:0 15px 0 15px;position:relative;z-index:10000;text-align:center;'><a href="http://www.microsoft.com/windows/internet-explorer/default.aspx?ocid=ie6_countdown_bannercode"><img src="http://www.theie6countdown.com/images/upgrade.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." /></a></div><![endif]-->
@@ -26,17 +26,17 @@
                     	{% include "includes/_header.html" %}
                     <div id="columns">
                         <!-- Center -->
+						{% block banner %}
+						{% endblock %}
+						{% block breadcrumb %}
+						{% endblock %}
                         <div id="center_column" class="center_column">
-                            {% block content %}
+							{% block content %}
                             {% endblock %}
                         </div>
                         <!-- Right -->
                         <div id="right_column" class="column">
-                            <script type="text/javascript">
-                                var CUSTOMIZE_TEXTFIELD = 1;
-                                var customizationIdMessage = 'Customization #';
-                                var removingLinkText = 'remove this product from my cart';
-                            </script>
+   
 							<!-- MODULE Block cart -->
                             {% include "includes/_cart.html" %}
 							<!-- /MODULE Block cart -->
